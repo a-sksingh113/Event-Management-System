@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const eventSchema = new mongoose.Schema(
+const programSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -17,6 +17,10 @@ const eventSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    phone:{
+      type:Number,
+      required:true
+    },
     venue: {
       type: String,
       required: true,
@@ -30,6 +34,8 @@ const eventSchema = new mongoose.Schema(
       enum: ["tech", "sports", "cultural"],
       required: true,
     },
+    fee: { type: Number, default: 0 },
+
     registeredUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -39,5 +45,5 @@ const eventSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Event = mongoose.model("event", eventSchema);
-module.exports = Event;
+const Program = mongoose.model("program", programSchema);
+module.exports = Program;

@@ -8,6 +8,9 @@ const {
   handleCreateNewEvent,
   getEventById,
   getAllEvents,
+  handleCreateNewEventProgram,
+  getEventProgramById,
+  getAllEventsProgram,
 } = require("../controllers/eventController");
 const { authorizeRoles } = require("../middleware/roleMiddleware");
 
@@ -26,14 +29,23 @@ const upload = multer({ storage: storage });
 // Public Routes - Anyone can view events
 router.get("/", getAllEvents);
 router.get("/:eventId", getEventById);
+router.get("/:eventId/programs", getAllEventsProgram);
+router.get("/:eventId/:programId", getEventProgramById);
 
 // Protected Route - Only ORGANIZER can create events
 router.post(
   "/new-event",
   checkForAuthenticationCookie("token"),
-  authorizeRoles(['ORGANIZER']),
+  authorizeRoles(["ORGANIZER"]),
   upload.single("coverImageURL"),
   handleCreateNewEvent
+);
+router.post(
+  "/:eventId/new-program",
+  checkForAuthenticationCookie("token"),
+  authorizeRoles(["ORGANIZER"]),
+  upload.single("coverImageURL"),
+  handleCreateNewEventProgram
 );
 
 module.exports = router;
