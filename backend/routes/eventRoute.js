@@ -3,19 +3,14 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const checkForAuthenticationCookie = require("../middleware/authMiddleware");
-
 const {
   handleCreateNewEvent,
   getAllEvents,
   getEventById,
   updateEvent,
   deleteEvent,
-  handleCreateNewEventProgram,
-  getAllEventsProgram,
-  getEventProgramById,
-  updateProgram,
-  deleteProgram,
 } = require("../controllers/eventController");
+
 const { authorizeRoles } = require("../middleware/roleMiddleware");
 
 const storage = multer.diskStorage({
@@ -52,27 +47,4 @@ router.delete(
   authorizeRoles(["ORGANIZER"]),
   deleteEvent
 );
-
-router.get("/:eventId/programs", getAllEventsProgram);
-router.get("/:eventId/programs/:programId", getEventProgramById);
-router.post(
-  "/:eventId/new-program",
-  checkForAuthenticationCookie("token"),
-  authorizeRoles(["ORGANIZER"]),
-  upload.single("coverImageURL"),
-  handleCreateNewEventProgram
-);
-router.put(
-  "/:eventId/programs/:programId",
-  checkForAuthenticationCookie("token"),
-  authorizeRoles(["ORGANIZER"]),
-  updateProgram
-);
-router.delete(
-  "/:eventId/programs/:programId",
-  checkForAuthenticationCookie("token"),
-  authorizeRoles(["ORGANIZER"]),
-  deleteProgram
-);
-
 module.exports = router;

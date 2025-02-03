@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser")
 
 const eventRoute = require("./routes/eventRoute")
 const userRoute = require("./routes/userRoute")
+const programRoute = require("./routes/programRoute")
 
 const app = express();
 PORT = process.env.PORT || 8001;
@@ -16,7 +17,9 @@ app.use(cookieParser());
 
 
 app.use('/api/user', userRoute );
-app.use('/api/event',eventRoute);
+app.use('/api/event',eventRoute,programRoute);
+
+
 
 app.listen(PORT,()=>{
     console.log(`Server started on port ${PORT} `);
