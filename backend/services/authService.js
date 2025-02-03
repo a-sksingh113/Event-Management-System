@@ -2,8 +2,11 @@ const JWT = require("jsonwebtoken");
 
 function createTokenForUser(user) {
   try {
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET is missing in environment variables");
+    }
     const payload = {
-      _id: user.id,
+      _id: user._id,
       fullName: user.fullName,
       email: user.email,
       profileImageURL: user.profileImageURL,
@@ -16,16 +19,18 @@ function createTokenForUser(user) {
   }
 }
 
-function validateToken(token){
-    try {
-       return JWT.verify(token, process.env.JWT_SECRET);
-    } catch (error) {
-        console.error("error validating token", error.message);
-        return null;
-    }
+const validateToken = (token)=>{
+  try {
+    const payload = JWT.verify(token, process.env.JWT_SECRET);
+    console.log(payload);
+    return payload;
+  } catch (error) {
+    console.error("error validating token", error.message);
+    return res.status(500).json({error:"Validation token error!"});
+  }
 }
 
 module.exports = {
-    createTokenForUser,
-    validateToken
-}
+  createTokenForUser,
+  validateToken,
+};

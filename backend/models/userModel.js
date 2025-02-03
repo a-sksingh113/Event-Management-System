@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["STUDENT", "ORGANIZER", "ADMIN"],
+      enum: ["STUDENT", "ORGANIZER"],
       default: "STUDENT",
     },
     profileImageURL: {
@@ -62,6 +62,7 @@ userSchema.static("matchPasswordAndGenerateToken", async function (email, passwo
     if (userProvidedHash !== hashedPassword) throw new Error("Invalid password");
 
     const token = createTokenForUser(user);
+   
     return token;
   } catch (error) {
     throw error;
