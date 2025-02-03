@@ -6,11 +6,15 @@ const checkForAuthenticationCookie = require("../middleware/authMiddleware");
 
 const {
   handleCreateNewEvent,
-  getEventById,
   getAllEvents,
+  getEventById,
+  updateEvent,
+  deleteEvent,
   handleCreateNewEventProgram,
-  getEventProgramById,
   getAllEventsProgram,
+  getEventProgramById,
+  updateProgram,
+  deleteProgram,
 } = require("../controllers/eventController");
 const { authorizeRoles } = require("../middleware/roleMiddleware");
 
@@ -29,10 +33,6 @@ const upload = multer({ storage: storage });
 // Public Routes - Anyone can view events
 router.get("/", getAllEvents);
 router.get("/:eventId", getEventById);
-router.get("/:eventId/programs", getAllEventsProgram);
-router.get("/:eventId/:programId", getEventProgramById);
-
-// Protected Route - Only ORGANIZER can create events
 router.post(
   "/new-event",
   checkForAuthenticationCookie("token"),
@@ -40,12 +40,39 @@ router.post(
   upload.single("coverImageURL"),
   handleCreateNewEvent
 );
+router.put(
+  "/:eventId",
+  checkForAuthenticationCookie("token"),
+  authorizeRoles(["ORGANIZER"]),
+  updateEvent
+);
+router.delete(
+  "/:eventId",
+  checkForAuthenticationCookie("token"),
+  authorizeRoles(["ORGANIZER"]),
+  deleteEvent
+);
+
+router.get("/:eventId/programs", getAllEventsProgram);
+router.get("/:eventId/programs/:programId", getEventProgramById);
 router.post(
   "/:eventId/new-program",
   checkForAuthenticationCookie("token"),
   authorizeRoles(["ORGANIZER"]),
   upload.single("coverImageURL"),
   handleCreateNewEventProgram
+);
+router.put(
+  "/:eventId/programs/:programId",
+  checkForAuthenticationCookie("token"),
+  authorizeRoles(["ORGANIZER"]),
+  updateProgram
+);
+router.delete(
+  "/:eventId/programs/:programId",
+  checkForAuthenticationCookie("token"),
+  authorizeRoles(["ORGANIZER"]),
+  deleteProgram
 );
 
 module.exports = router;
