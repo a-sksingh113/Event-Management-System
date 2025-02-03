@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser")
 const eventRoute = require("./routes/eventRoute")
 const userRoute = require("./routes/userRoute")
 const programRoute = require("./routes/programRoute")
+const programRegistrationRoute = require("./routes/programRegistrationRoute")
 
 const app = express();
 PORT = process.env.PORT || 8001;
@@ -17,7 +18,7 @@ app.use(cookieParser());
 
 
 app.use('/api/user', userRoute );
-app.use('/api/event',eventRoute,programRoute);
+app.use('/api/event',eventRoute,programRoute,programRegistrationRoute);
 
 
 

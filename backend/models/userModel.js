@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
       default: "/images/default.png",
     },
     registeredEvents: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Registration" },
+      { type: mongoose.Schema.Types.ObjectId, ref: "ProgramRegistration" },
     ],
   },
   { timestamps: true }

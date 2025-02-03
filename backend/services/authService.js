@@ -22,7 +22,6 @@ function createTokenForUser(user) {
 const validateToken = (token)=>{
   try {
     const payload = JWT.verify(token, process.env.JWT_SECRET);
-    console.log(payload);
     return payload;
   } catch (error) {
     console.error("error validating token", error.message);
