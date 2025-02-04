@@ -9,6 +9,7 @@ const {
   getEventById,
   updateEvent,
   deleteEvent,
+  getEventParticipants
 } = require("../controllers/eventController");
 
 const { authorizeRoles } = require("../middleware/roleMiddleware");
@@ -47,4 +48,6 @@ router.delete(
   authorizeRoles(["ORGANIZER"]),
   deleteEvent
 );
+router.get("/:eventId/participants", checkForAuthenticationCookie("token"),
+authorizeRoles(["ORGANIZER"]),getEventParticipants)
 module.exports = router;

@@ -6,7 +6,7 @@ const programRegistrationSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  email: {
+  studentEmail: {
     type: String,
     required: true,
     unique:true,

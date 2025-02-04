@@ -32,7 +32,7 @@ const eventSchema = new mongoose.Schema(
     },
     registeredUsers: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "ProgramRegistration",
       }]
       
   },

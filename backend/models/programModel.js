@@ -38,7 +38,7 @@ const programSchema = new mongoose.Schema(
 
     registeredUsers: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "ProgramRegistration",
       }]
       
   },

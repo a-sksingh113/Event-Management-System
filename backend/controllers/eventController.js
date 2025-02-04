@@ -82,6 +82,26 @@ const getEventById = async (req, res) => {
   }
 };
 
+const getEventParticipants = async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    
+    const event = await Event.findById(eventId).populate("registeredUsers");
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    res.status(200).json({
+      eventName: event.title,
+      participants: event.registeredUsers
+    });
+
+  } catch (error) {
+    console.error("Error fetching event participants:", error);
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 
 module.exports = {
   handleCreateNewEvent,
@@ -89,4 +109,5 @@ module.exports = {
   getEventById,
   updateEvent,
   deleteEvent,
+  getEventParticipants
 };
