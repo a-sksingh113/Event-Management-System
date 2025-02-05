@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema(
     },
     profileImageURL: {
       type: String,
-      default: "/images/default.png",
+      require:true,
     },
     registeredEvents: [
       { type: mongoose.Schema.Types.ObjectId, ref: "ProgramRegistration" },

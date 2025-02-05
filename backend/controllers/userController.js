@@ -16,10 +16,12 @@ const handleUserSignin = async (req, res) => {
   }
 };
 
+
 const handleUserSignup = async (req, res) => {
   const { fullName, email, password } = req.body;
+  const profileImageURL = req.file ? req.file.path : '/uploads/default-1.png';
   try {
-    if (!fullName || !email || !password) {
+    if (!fullName || !email || !password || !profileImageURL) {
       return res.status(400).json({ message: "All fields are required" });
     }
     const existingUser = await User.findOne({ email });
@@ -31,6 +33,7 @@ const handleUserSignup = async (req, res) => {
       fullName,
       email,
       password,
+      profileImageURL,
       verficationToken,
       verficationTokenExpiresAt:Date.now() + 24 * 60 * 60 * 1000
     });
