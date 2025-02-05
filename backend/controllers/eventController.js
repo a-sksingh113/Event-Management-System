@@ -3,12 +3,9 @@ const handleCreateNewEvent = async (req, res) => {
   try {
     const { title, description, date, venue, tags, category, registeredUsers } = req.body;
     const coverImageURL = req.file ? req.file.path : '/uploads/default.png';
-    
-
     if (!title || !description || !coverImageURL || !date || !venue || !category) {
       return res.status(400).json({ message: "Please provide all required fields" });
     }
-
     const newEvent = await Event.create({
       title,
       description,

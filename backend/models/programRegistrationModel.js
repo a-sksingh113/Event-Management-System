@@ -30,7 +30,7 @@ const programRegistrationSchema = new mongoose.Schema({
   department: {
     type: String,
     required: true,
-    enum: ["IT", "CST", "MME", "CIVIL", "META", "EE", "MM", "AE"],
+    enum: ["IT", "CST", "MME", "CIVIL", "META", "EE", "MM", "AE","ETC"],
   },
   course: {
     type: String,
