@@ -1,7 +1,7 @@
 
 # IIEST Event-Management-System
 
-This is the backend of a Note-Taking Web Application built using Node.js, Express.js, and MongoDB. It supports features such as hierarchical categories (e.g., course, semester, subject), user authentication, and note management.
+This is the backend of the IIEST Event Management System built using Node.js, Express.js, and MongoDB. It supports features such as user authentication, OTP-based email verification, event creation, and management for students and organizers.
 
 ## Features
 
